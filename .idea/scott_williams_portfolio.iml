@@ -9,6 +9,12 @@
       <excludeFolder url="file://$MODULE_DIR$/root_app/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/root_app/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/root_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_bootstrap/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_bootstrap/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_bootstrap/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/micro_frontends/mfe_home/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/micro_frontends/mfe_home/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/micro_frontends/mfe_home/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,7 +1,8 @@
 name: sw_dependencies
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+homepage: 'sw_dependencies'
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
   sdk: '>=3.1.1 <4.0.0'
@@ -12,6 +13,12 @@ dependencies:
     sdk: flutter
 
   get_it: ^7.6.4
+
+  hexcolor: ^3.0.1
+
+  font_awesome_flutter: ^10.6.0
+
+  action_slider: ^0.7.0
 
   # Proprietary dependencies that can be used on micro frontends
 

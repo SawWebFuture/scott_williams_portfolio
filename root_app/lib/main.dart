@@ -120,10 +120,14 @@ class _MyAppState extends State<MyApp> {
         initialRoute: '/main',
         onGenerateRoute: widget.generateRoute,
         title: 'Scott Williams Portfolio',
-        // theme: ThemeData(
-        //   primarySwatch: Colors.blue,
-        //   fontFamily: 'Mont',
-        // ),
+        theme: ThemeData(
+          primaryColor: HexColor('#448ea2'),
+          primarySwatch: getMaterialColor(HexColor('#448ea2')),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: HexColor('#474787'),
+            secondary: HexColor('#2C2C54'),
+          ),
+        ),
         // darkTheme: ThemeData(
         //   primarySwatch: Colors.red,
         //   fontFamily: 'Mont',
@@ -131,5 +135,27 @@ class _MyAppState extends State<MyApp> {
         // themeMode: ThemeInheritedNotifier.of(context).value,
       ),
     );
+  }
+
+  MaterialColor getMaterialColor(Color color) {
+    final int red = color.red;
+    final int green = color.green;
+    final int blue = color.blue;
+    final int alpha = color.alpha;
+
+    final Map<int, Color> shades = {
+      50: Color.fromARGB(alpha, red, green, blue),
+      100: Color.fromARGB(alpha, red, green, blue),
+      200: Color.fromARGB(alpha, red, green, blue),
+      300: Color.fromARGB(alpha, red, green, blue),
+      400: Color.fromARGB(alpha, red, green, blue),
+      500: Color.fromARGB(alpha, red, green, blue),
+      600: Color.fromARGB(alpha, red, green, blue),
+      700: Color.fromARGB(alpha, red, green, blue),
+      800: Color.fromARGB(alpha, red, green, blue),
+      900: Color.fromARGB(alpha, red, green, blue),
+    };
+
+    return MaterialColor(color.value, shades);
   }
 }
