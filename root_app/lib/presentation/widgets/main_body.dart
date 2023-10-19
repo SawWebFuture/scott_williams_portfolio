@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:scott_williams_portfolio/consts/consts.dart';
+import 'package:scott_williams_portfolio/presentation/widgets/user_name_dialog.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
 
 class MainBody extends StatefulWidget {
-  const MainBody({super.key});
+  const MainBody({
+    super.key,
+    required this.isDark,
+  });
+
+  final bool isDark;
 
   @override
   State<MainBody> createState() => _MainBodyState();
@@ -20,25 +27,46 @@ class _MainBodyState extends State<MainBody> {
       decoration: BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          HexColor('#448ea2'),
-          HexColor('#a7e8f7'),
-          Colors.white,
+          Consts.backgroundColor,
+          Consts.backgroundColor,
+          widget.isDark ? Consts.lightDarkColor : Consts.lightColor,
+          widget.isDark ? Consts.lightDarkColor : Colors.white,
         ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       )),
       child: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 0, bottom: 25),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Image.asset('assets/flower_landscape_3.png'),
-              ),
+          Container(
+            padding: const EdgeInsets.only(bottom: 25),
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset(
+              'assets/images/flower_landscape_3.png',
+              fit: BoxFit.fill,
             ),
           ),
+          //TODO: add flower somewhere else
+          // Align(
+          //   alignment: Alignment.topCenter,
+          //   child: Padding(
+          //     padding: const EdgeInsets.only(top: 180.0),
+          //     child: Motion(
+          //       borderRadius: const BorderRadius.all(
+          //         Radius.circular(360),
+          //       ),
+          //       child: Container(
+          //           height: 100,
+          //           width: 100,
+          //           decoration: const BoxDecoration(
+          //             shape: BoxShape.circle,
+          //           ),
+          //           child: FittedBox(
+          //               fit: BoxFit.fitHeight,
+          //               child: Image.asset(
+          //                   'assets/images/flower_circle_trans.png'))),
+          //     ),
+          //   ),
+          // ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -48,18 +76,28 @@ class _MainBodyState extends State<MainBody> {
               ),
               child: ActionSlider.standard(
                 sliderBehavior: SliderBehavior.stretch,
-                backgroundColor: Colors.white,
+                backgroundColor:
+                    widget.isDark ? HexColor('#052d2d') : Colors.white,
                 action: (controller) async {
                   controller.loading(); //starts loading animation
                   await Future.delayed(const Duration(seconds: 1));
                   controller.success(); //starts success animation
                   await Future.delayed(const Duration(seconds: 1));
-                  //TODO: go to home screen
+                  if (context.mounted) {
+                    showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const UserNameDialog();
+                        });
+                  }
                   controller.reset(); //resets the slider
                 },
-                child: const Text(
+                child: Text(
                   'Slide to enter app',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: widget.isDark ? Colors.white : Colors.black),
                 ),
               ),
             ),

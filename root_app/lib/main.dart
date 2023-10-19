@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:scott_williams_portfolio/presentation/main_page.dart';
 import 'package:scott_williams_portfolio/routes/root_app_routes.dart';
+import 'package:scott_williams_portfolio/service_locator/key_value_storage.dart';
+import 'package:scott_williams_portfolio/service_locator/theme.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
+import 'package:sw_design_system/sw_design_system.dart';
 
-void main() {
+import 'consts/consts.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Motion.instance.initialize();
   runApp(MyApp());
 }
 
@@ -32,13 +38,13 @@ class MyApp extends StatefulWidget with RootApp {
     //TODO
     // registerHttpDependencies();
     //
-    // registerKeyValueStorageDependencies();
+    registerKeyValueStorageDependencies();
     //
     // registerUserDependencies();
     //
     // registerPlatformDependencies();
-    //
-    // registerThemeDependencies();
+
+    registerThemeDependencies();
 
     //Side Menu
     // GetIt.instance.registerLazySingleton<ISideMenuDatasource>(
@@ -110,31 +116,54 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // checkSharedPreferencesFuture = GetIt.instance.isReady<SharedPreferences>();
+    checkSharedPreferencesFuture = GetIt.instance.isReady<SharedPreferences>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: MaterialApp(
-        initialRoute: '/main',
-        onGenerateRoute: widget.generateRoute,
-        title: 'Scott Williams Portfolio',
-        theme: ThemeData(
-          primaryColor: HexColor('#448ea2'),
-          primarySwatch: getMaterialColor(HexColor('#448ea2')),
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: HexColor('#474787'),
-            secondary: HexColor('#2C2C54'),
-          ),
-        ),
-        // darkTheme: ThemeData(
-        //   primarySwatch: Colors.red,
-        //   fontFamily: 'Mont',
-        // ),
-        // themeMode: ThemeInheritedNotifier.of(context).value,
-      ),
-    );
+    return FutureBuilder(
+        future: checkSharedPreferencesFuture,
+        builder: (_, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return AnimatedContainer(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Consts.backgroundColor, Consts.lightDarkColor],
+                ),
+              ),
+              curve: Curves.easeInCubic,
+              duration: const Duration(milliseconds: 3500),
+            );
+          }
+
+          return ThemeInheritedNotifier(
+            notifier: GetIt.instance<ThemeNotifier>(),
+            child: SafeArea(
+              child: MaterialApp(
+                initialRoute: '/main',
+                onGenerateRoute: widget.generateRoute,
+                title: 'Scott Williams Portfolio',
+                theme: ThemeData(
+                  primaryColor: HexColor('#448ea2'),
+                  primarySwatch: getMaterialColor(HexColor('#448ea2')),
+                  colorScheme: ColorScheme.fromSeed(
+                    seedColor: HexColor('#474787'),
+                    secondary: HexColor('#2C2C54'),
+                  ),
+                  fontFamily: 'Myriad',
+                ),
+                debugShowCheckedModeBanner: false,
+                // darkTheme: ThemeData(
+                //   primarySwatch: Colors.red,
+                //   fontFamily: 'Mont',
+                // ),
+                themeMode: ThemeMode.light,
+              ),
+            ),
+          );
+        });
   }
 
   MaterialColor getMaterialColor(Color color) {

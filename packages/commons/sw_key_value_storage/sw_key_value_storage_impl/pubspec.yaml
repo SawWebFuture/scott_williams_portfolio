@@ -1,8 +1,8 @@
-name: sw_dependencies
+name: sw_key_value_storage_impl
 description: A new Flutter package project.
 version: 0.0.1
-homepage: 'sw_dependencies'
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+homepage: ''
+publish_to: none
 
 environment:
   sdk: '>=3.1.1 <4.0.0'
@@ -12,25 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-  get_it: ^7.6.4
-
-  hexcolor: ^3.0.1
-
-  font_awesome_flutter: ^10.6.0
-
-  action_slider: ^0.7.0
-
-  shared_preferences: ^2.2.2
-
-  motion: ^1.4.0
-
-  # Proprietary dependencies that can be used on micro frontends
-
-  sw_bootstrap:
-    path: '../sw_bootstrap'
-
   sw_key_value_storage_interfaces:
-    path: '../sw_key_value_storage/sw_key_value_storage_interfaces'
+    path: '../sw_key_value_storage_interfaces'
+
+  sw_dependencies:
+    path: '../../sw_dependencies'
 
 dev_dependencies:
   flutter_test:

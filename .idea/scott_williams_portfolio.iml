@@ -15,6 +15,12 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/micro_frontends/mfe_home/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/packages/micro_frontends/mfe_home/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/packages/micro_frontends/mfe_home/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_design_system/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_design_system/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_design_system/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_key_value_storage/sw_key_value_storage_impl/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_key_value_storage/sw_key_value_storage_impl/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/commons/sw_key_value_storage/sw_key_value_storage_impl/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
