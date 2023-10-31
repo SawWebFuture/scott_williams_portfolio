@@ -4,8 +4,26 @@ import 'package:scott_williams_portfolio/presentation/widgets/main_body.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
 import 'package:sw_design_system/sw_design_system.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  // final _navigatorList = <Navigator>[
+  //   Navigator(
+  //     initialRoute: HomeRoutes.home,
+  //     onGenerateRoute: (settings) =>
+  //         HomeMicroFrontend().generateNestedRoute(settings: settings),
+  //   ),
+  //   // Navigator(
+  //   //   initialRoute: ScheduleRoutes.scheduleOverview,
+  //   //   onGenerateRoute: (settings) =>
+  //   //       ScheduleMicroFrontend().generateNestedRoute(settings: settings),
+  //   // ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +32,7 @@ class MainPage extends StatelessWidget {
     final isDark = themeMode == ThemeMode.dark;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           'Scott Alan Williams',
@@ -71,9 +90,7 @@ class MainPage extends StatelessWidget {
         backgroundColor: Consts.backgroundColor,
         elevation: 0,
       ),
-      body: MainBody(
-        isDark: isDark,
-      ),
+      body: MainBody(isDark: isDark),
     );
   }
 }

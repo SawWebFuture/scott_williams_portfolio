@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scott_williams_portfolio/presentation/widgets/user_name_dialog/user_name_dialog_field.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
 
 class UserNameDialog extends StatelessWidget {
@@ -55,12 +56,14 @@ class UserNameDialog extends StatelessWidget {
                       child: const FaIcon(
                         FontAwesomeIcons.xmark,
                         color: Colors.white,
+                        size: 16,
                       ),
                     ),
                   ),
                 ],
               ),
             ),
+            const UserNameDialogField(),
           ],
         ),
       ),

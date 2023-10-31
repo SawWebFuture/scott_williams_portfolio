@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mfe_home/routes/home_routes.dart';
+import 'package:mfe_home/widgets/home_page.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
 
 class HomeMicroFrontend implements MicroFrontend {
@@ -38,7 +40,9 @@ class HomeMicroFrontend implements MicroFrontend {
 
   @override
   Map<String, Widget Function(BuildContext context, Object? args)>
-      get nestedRoutes => {};
+      get nestedRoutes => {
+            HomeRoutes.home: (context, args) => const HomePage(),
+          };
 
   @override
   Map<String, Widget Function(BuildContext context, Object? args)> get routes =>

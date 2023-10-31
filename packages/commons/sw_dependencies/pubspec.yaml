@@ -24,6 +24,11 @@ dependencies:
 
   motion: ^1.4.0
 
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  path_provider: ^2.1.1
+
   # Proprietary dependencies that can be used on micro frontends
 
   sw_bootstrap:

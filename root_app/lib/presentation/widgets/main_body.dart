@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scott_williams_portfolio/consts/consts.dart';
-import 'package:scott_williams_portfolio/presentation/widgets/user_name_dialog.dart';
+import 'package:scott_williams_portfolio/presentation/widgets/user_name_dialog/user_name_dialog.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
 
 class MainBody extends StatefulWidget {
@@ -80,15 +80,30 @@ class _MainBodyState extends State<MainBody> {
                     widget.isDark ? HexColor('#052d2d') : Colors.white,
                 action: (controller) async {
                   controller.loading(); //starts loading animation
-                  await Future.delayed(const Duration(seconds: 1));
+                  try {
+                    var box = await Hive.openBox('nameBox');
+                    //TODO: go straight to the home screen
+                    debugPrint(box.get('name'));
+                  } catch (error) {
+                    debugPrint(error.toString());
+                  }
                   controller.success(); //starts success animation
-                  await Future.delayed(const Duration(seconds: 1));
                   if (context.mounted) {
-                    showDialog<void>(
+                    showDialog<String?>(
                         context: context,
                         builder: (BuildContext context) {
                           return const UserNameDialog();
-                        });
+                        }).then((value) async {
+                      if (value != null && value != 'no') {
+                        var box = await Hive.openBox('nameBox');
+                        await box.put('name', value);
+                        //TODO: go to home screen using name
+                        // Navigator.pushNamed(
+                        //   context,
+                        //   HomeRoutes.home,
+                        // );
+                      }
+                    });
                   }
                   controller.reset(); //resets the slider
                 },

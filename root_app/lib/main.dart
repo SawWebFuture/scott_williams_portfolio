@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mfe_home/home_microfrontend.dart';
 import 'package:scott_williams_portfolio/presentation/main_page.dart';
 import 'package:scott_williams_portfolio/routes/root_app_routes.dart';
 import 'package:scott_williams_portfolio/service_locator/key_value_storage.dart';
@@ -10,6 +12,11 @@ import 'consts/consts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   await Motion.instance.initialize();
   runApp(MyApp());
 }
@@ -23,7 +30,7 @@ class MyApp extends StatefulWidget with RootApp {
 
   @override
   List<MicroFrontend> get microApps => [
-        // HomeMicroFrontend(),
+        HomeMicroFrontend(),
       ];
 
   @override
@@ -148,9 +155,30 @@ class _MyAppState extends State<MyApp> {
                 theme: ThemeData(
                   primaryColor: HexColor('#448ea2'),
                   primarySwatch: getMaterialColor(HexColor('#448ea2')),
+                  textSelectionTheme: TextSelectionThemeData(
+                    cursorColor: Consts.backgroundColor,
+                  ),
                   colorScheme: ColorScheme.fromSeed(
                     seedColor: HexColor('#474787'),
                     secondary: HexColor('#2C2C54'),
+                  ),
+                  textTheme: TextTheme(
+                    titleMedium: TextStyle(color: Consts.darkColor),
+                  ),
+                  inputDecorationTheme: InputDecorationTheme(
+                    focusColor: Consts.backgroundColor,
+                    hoverColor: Consts.backgroundColor,
+                    prefixIconColor: Consts.backgroundColor,
+                    iconColor: Consts.darkColor,
+                    counterStyle: TextStyle(color: Consts.backgroundColor),
+                    labelStyle: TextStyle(
+                      color: Consts.backgroundColor,
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Consts.backgroundColor,
+                      ),
+                    ),
                   ),
                   fontFamily: 'Myriad',
                 ),
