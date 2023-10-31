@@ -88,6 +88,7 @@ class _MainBodyState extends State<MainBody> {
                     var box = await Hive.openBox('nameBox');
                     //TODO: go straight to the home screen
                     debugPrint(box.get('name'));
+
                     isGoHome = true;
                     name = box.get('name');
                   } catch (error) {

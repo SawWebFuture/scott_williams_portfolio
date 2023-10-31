@@ -24,11 +24,17 @@ class HomePortfolioItem extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Motion(
+                borderRadius: BorderRadius.circular(21),
+                shadow: const ShadowConfiguration(
+                  color: Colors.grey,
+                  maxOffset: Offset(1, 1),
+                  topOffset: 20,
+                ),
                 child: Container(
                   width: 300,
                   height: 200,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.grey.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(21),
                   ),
                   child: const Center(
