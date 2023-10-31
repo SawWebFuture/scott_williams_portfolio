@@ -7,9 +7,11 @@ class MainBody extends StatefulWidget {
   const MainBody({
     super.key,
     required this.isDark,
+    required this.onPageChange,
   });
 
   final bool isDark;
+  final Function(String) onPageChange;
 
   @override
   State<MainBody> createState() => _MainBodyState();
@@ -80,15 +82,20 @@ class _MainBodyState extends State<MainBody> {
                     widget.isDark ? HexColor('#052d2d') : Colors.white,
                 action: (controller) async {
                   controller.loading(); //starts loading animation
+                  bool isGoHome = false;
+                  String name = '';
                   try {
                     var box = await Hive.openBox('nameBox');
                     //TODO: go straight to the home screen
                     debugPrint(box.get('name'));
+                    isGoHome = true;
+                    name = box.get('name');
                   } catch (error) {
                     debugPrint(error.toString());
                   }
+
                   controller.success(); //starts success animation
-                  if (context.mounted) {
+                  if (context.mounted && !isGoHome) {
                     showDialog<String?>(
                         context: context,
                         builder: (BuildContext context) {
@@ -97,13 +104,17 @@ class _MainBodyState extends State<MainBody> {
                       if (value != null && value != 'no') {
                         var box = await Hive.openBox('nameBox');
                         await box.put('name', value);
-                        //TODO: go to home screen using name
-                        // Navigator.pushNamed(
-                        //   context,
-                        //   HomeRoutes.home,
-                        // );
+                        isGoHome = true;
+                        name = value;
                       }
                     });
+                  } else {
+                    await Future.delayed(const Duration(seconds: 1));
+                  }
+                  if (isGoHome) {
+                    widget.onPageChange.call(
+                      name,
+                    );
                   }
                   controller.reset(); //resets the slider
                 },

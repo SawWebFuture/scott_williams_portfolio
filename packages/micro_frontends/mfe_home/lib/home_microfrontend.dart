@@ -41,7 +41,9 @@ class HomeMicroFrontend implements MicroFrontend {
   @override
   Map<String, Widget Function(BuildContext context, Object? args)>
       get nestedRoutes => {
-            HomeRoutes.home: (context, args) => const HomePage(),
+            HomeRoutes.home: (context, args) => const HomePage(
+                  name: '',
+                ),
           };
 
   @override

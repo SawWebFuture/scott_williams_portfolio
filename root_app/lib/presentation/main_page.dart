@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mfe_home/widgets/home_page.dart';
 import 'package:scott_williams_portfolio/consts/consts.dart';
+import 'package:scott_williams_portfolio/presentation/notifiers/main_notifier.dart';
+import 'package:scott_williams_portfolio/presentation/notifiers/main_state.dart';
 import 'package:scott_williams_portfolio/presentation/widgets/main_body.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
 import 'package:sw_design_system/sw_design_system.dart';
@@ -12,6 +15,17 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late final MainNotifier mainNotifier;
+
+  @override
+  void initState() {
+    super.initState();
+    GetIt.instance.registerFactory<MainNotifier>(
+      () => MainNotifier(),
+    );
+    mainNotifier = GetIt.I.get<MainNotifier>();
+  }
+
   // final _navigatorList = <Navigator>[
   //   Navigator(
   //     initialRoute: HomeRoutes.home,
@@ -90,7 +104,24 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Consts.backgroundColor,
         elevation: 0,
       ),
-      body: MainBody(isDark: isDark),
+      body: ValueListenableBuilder(
+        valueListenable: mainNotifier,
+        builder: (_, state, __) {
+          return switch (state.status) {
+            MainStatus.login => MainBody(
+                isDark: isDark,
+                onPageChange: (value) {
+                  mainNotifier.changeStatus(
+                    status: MainStatus.home,
+                    name: value,
+                  );
+                }),
+            MainStatus.home => HomePage(
+                name: state.name,
+              ),
+          };
+        },
+      ),
     );
   }
 }
