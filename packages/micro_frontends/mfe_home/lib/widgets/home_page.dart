@@ -1,62 +1,100 @@
 import 'package:flutter/material.dart';
+import 'package:mfe_home/widgets/widgets/home_date.dart';
+import 'package:mfe_home/widgets/widgets/home_header.dart';
 import 'package:mfe_home/widgets/widgets/home_portfolio_item.dart';
+import 'package:mfe_home/widgets/widgets/home_portfolio_item_dialog/home_portfolio_dialog.dart';
+import 'package:sw_dependencies/sw_dependencies.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
     super.key,
     required this.name,
+    required this.isDark,
   });
 
   final String name;
+  final bool isDark;
+
+  void launchDialog(
+      {required BuildContext context,
+      required String name,
+      List<String> links = const []}) {
+    showDialog<String?>(
+      context: context,
+      builder: (BuildContext context) {
+        return HomePortfolioDialog(name: name, links: links);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.grey,
-              ),
+    return Container(
+      color: isDark ? HexColor('#052d2d') : Colors.white,
+      child: Column(
+        children: [
+          HomeHeader(
+            isDark: isDark,
+            name: name,
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                HomePortfolioItem(
+                  imageUrl: 'assets/images/iConnectMusicians.jpg',
+                  onTap: () {
+                    launchDialog.call(
+                      context: context,
+                      name: 'iConnectMusicians',
+                    );
+                  },
+                ),
+                const HomeDate(date: '2023'),
+                HomePortfolioItem(
+                  imageUrl: 'assets/images/iConnections.jpg',
+                  onTap: () {
+                    launchDialog.call(
+                      context: context,
+                      name: 'iConnections',
+                      links: [
+                        'https://apps.apple.com/us/app/iconnections-llc/id1534676334',
+                        'https://play.google.com/store/apps/details?id=io.iconnections.mobile'
+                      ],
+                    );
+                  },
+                ),
+                const HomeDate(date: '2020'),
+                HomePortfolioItem(
+                  imageUrl: 'assets/images/meditation_experience.jpg',
+                  onTap: () {
+                    launchDialog.call(
+                      context: context,
+                      name: 'Meditation Experience',
+                      links: [
+                        'https://apps.apple.com/us/app/meditation-experience/id1399192121',
+                        'https://play.google.com/store/apps/details?id=com.scottalanwilliams.meditationexperience'
+                      ],
+                    );
+                  },
+                ),
+                const HomeDate(date: '2019'),
+                HomePortfolioItem(
+                  imageUrl: 'assets/images/3D_psy_art_creator.jpg',
+                  onTap: () {
+                    launchDialog.call(
+                      context: context,
+                      name: '3D Psy Art Creator',
+                      links: [
+                        'https://play.google.com/store/apps/details?id=com.ScottAlanWilliams.psyartcreator',
+                      ],
+                    );
+                  },
+                ),
+              ],
             ),
           ),
-          child: Center(
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  const TextSpan(
-                    text: 'Welcome ',
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.black,
-                    ),
-                  ),
-                  TextSpan(
-                    text: name,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: ListView(
-            children: const [
-              HomePortfolioItem(),
-              HomePortfolioItem(),
-              HomePortfolioItem(),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

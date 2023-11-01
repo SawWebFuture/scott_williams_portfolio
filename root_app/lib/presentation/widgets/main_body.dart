@@ -84,15 +84,11 @@ class _MainBodyState extends State<MainBody> {
                   controller.loading(); //starts loading animation
                   bool isGoHome = false;
                   String name = '';
-                  try {
-                    var box = await Hive.openBox('nameBox');
-                    //TODO: go straight to the home screen
-                    debugPrint(box.get('name'));
-                    //TODO: update if name is not empty or null
+                  var box = await Hive.openBox('nameBox');
+                  var nameFromBox = box.get('name');
+                  if (nameFromBox != null) {
                     isGoHome = true;
-                    name = box.get('name');
-                  } catch (error) {
-                    debugPrint(error.toString());
+                    name = nameFromBox;
                   }
 
                   controller.success(); //starts success animation
@@ -103,21 +99,24 @@ class _MainBodyState extends State<MainBody> {
                           return const UserNameDialog();
                         }).then((value) async {
                       if (value != null && value != 'no') {
-                        var box = await Hive.openBox('nameBox');
                         await box.put('name', value);
                         isGoHome = true;
                         name = value;
+                        controller.reset(); //resets the slider
+                        widget.onPageChange.call(
+                          name,
+                        );
                       }
                     });
                   } else {
                     await Future.delayed(const Duration(seconds: 1));
                   }
+                  controller.reset();
                   if (isGoHome) {
                     widget.onPageChange.call(
                       name,
                     );
                   }
-                  controller.reset(); //resets the slider
                 },
                 child: Text(
                   'Slide to enter app',

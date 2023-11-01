@@ -118,6 +118,7 @@ class _MainPageState extends State<MainPage> {
                 }),
             MainStatus.home => HomePage(
                 name: state.name,
+                isDark: isDark,
               ),
           };
         },

@@ -11,3 +11,4 @@ export 'package:path_provider/path_provider.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:sw_bootstrap/sw_bootstrap.dart';
 export 'package:sw_key_value_storage_interfaces/sw_key_value_storage_interfaces.dart';
+export 'package:url_launcher/url_launcher.dart';

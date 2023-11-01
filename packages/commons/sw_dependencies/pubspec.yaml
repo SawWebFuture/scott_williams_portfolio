@@ -29,6 +29,8 @@ dependencies:
 
   path_provider: ^2.1.1
 
+  url_launcher: ^6.2.1
+
   # Proprietary dependencies that can be used on micro frontends
 
   sw_bootstrap:

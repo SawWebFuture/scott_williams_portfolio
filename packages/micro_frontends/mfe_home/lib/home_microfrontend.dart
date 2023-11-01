@@ -38,11 +38,13 @@ class HomeMicroFrontend implements MicroFrontend {
     // );
   }
 
+  //TODO: set this up if needed to open page
   @override
   Map<String, Widget Function(BuildContext context, Object? args)>
       get nestedRoutes => {
             HomeRoutes.home: (context, args) => const HomePage(
                   name: '',
+                  isDark: false,
                 ),
           };
 
