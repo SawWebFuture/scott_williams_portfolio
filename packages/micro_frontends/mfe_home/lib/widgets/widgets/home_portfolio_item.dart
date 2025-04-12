@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class HomePortfolioItem extends StatelessWidget {
   const HomePortfolioItem({
@@ -13,6 +14,25 @@ class HomePortfolioItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final imageContainer = Container(
+      width: 300,
+      height: 200,
+      decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(21),
+      ),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 1),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Image.asset(imageUrl),
+          ),
+        ),
+      ),
+    );
+
     return SizedBox(
       height: 300,
       child: Center(
@@ -34,32 +54,16 @@ class HomePortfolioItem extends StatelessWidget {
                 onTap: () {
                   onTap.call();
                 },
-                child: Motion(
+                child: kIsWeb
+                    ? imageContainer
+                    : Motion(
                   borderRadius: BorderRadius.circular(21),
                   shadow: const ShadowConfiguration(
                     color: Colors.grey,
                     maxOffset: Offset(1, 1),
                     topOffset: 20,
                   ),
-                  child: Container(
-                    width: 300,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(21),
-                    ),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 1,
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(18),
-                          child: Image.asset(imageUrl),
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: imageContainer,
                 ),
               ),
             ),
