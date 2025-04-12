@@ -38,7 +38,7 @@ class UserNameDialog extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(vertical: 21.0, horizontal: 13),
                     child: Text(
-                      'Create a user name',
+                      'Create a User Name',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,

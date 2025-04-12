@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scott_williams_portfolio/consts/consts.dart';
 
 class UserNameDialogField extends StatefulWidget {
   const UserNameDialogField({super.key});
@@ -43,20 +44,26 @@ class _UserNameDialogFieldState extends State<UserNameDialogField> {
             ),
           ),
           MaterialButton(
+            color: Consts.backgroundColor, // Button background color
+            textColor: Colors.white,         // Text color for good contrast
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0), // Rounded corners
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
             onPressed: () {
-              if (_controller.text == '') {
+              if (_controller.text.isEmpty) {
                 setState(() {
                   errorText = 'Username is required';
                 });
               } else {
-                //TODO: update using hive
+                // TODO: update using hive
                 Navigator.pop(context, _controller.text);
               }
             },
             child: const Text('Submit'),
           ),
           const SizedBox(
-            height: 2,
+            height: 12,
           )
         ],
       ),

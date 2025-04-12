@@ -74,29 +74,32 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              themeModeNotifier.toggleTheme();
-            },
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  FaIcon(
-                    FontAwesomeIcons.solidMoon,
-                    color: isDark ? Consts.darkColor : Colors.white,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Dark Mode',
-                    style: TextStyle(
-                      fontSize: 9,
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () {
+                themeModeNotifier.toggleTheme();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    FaIcon(
+                      FontAwesomeIcons.solidMoon,
                       color: isDark ? Consts.darkColor : Colors.white,
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    Text(
+                      'Dark Mode',
+                      style: TextStyle(
+                        fontSize: 9,
+                        color: isDark ? Consts.darkColor : Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

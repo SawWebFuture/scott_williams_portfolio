@@ -39,12 +39,15 @@ class _MainBodyState extends State<MainBody> {
       )),
       child: Stack(
         children: [
-          Container(
-            padding: const EdgeInsets.only(bottom: 25),
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              'assets/images/flower_landscape_3.png',
-              fit: BoxFit.fill,
+          Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 500),
+              padding: const EdgeInsets.only(bottom: 25),
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset(
+                'assets/images/flower_landscape_3.png',
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           //TODO: add flower somewhere else
@@ -77,6 +80,7 @@ class _MainBodyState extends State<MainBody> {
                 horizontal: 16,
               ),
               child: ActionSlider.standard(
+                width: 500,
                 sliderBehavior: SliderBehavior.stretch,
                 backgroundColor:
                     widget.isDark ? HexColor('#052d2d') : Colors.white,
