@@ -7,17 +7,28 @@ import 'package:scott_williams_portfolio/service_locator/key_value_storage.dart'
 import 'package:scott_williams_portfolio/service_locator/theme.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
 import 'package:sw_design_system/sw_design_system.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'consts/consts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
-  SystemChrome.setPreferredOrientations([
+
+  if (kIsWeb) {
+    // Web-safe Hive init
+    await Hive.initFlutter();
+  } else {
+    final directory = await getApplicationDocumentsDirectory();
+    Hive.init(directory.path);
+  }
+
+  // Lock to portrait
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+
   await Motion.instance.initialize();
+
   runApp(MyApp());
 }
 
