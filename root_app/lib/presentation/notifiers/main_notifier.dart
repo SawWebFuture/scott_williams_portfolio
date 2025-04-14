@@ -4,7 +4,7 @@ import 'package:scott_williams_portfolio/presentation/notifiers/main_state.dart'
 class MainNotifier extends ValueNotifier<MainState> {
   MainNotifier()
       : super(
-          MainState(status: MainStatus.login),
+          MainState(status: MainStatus.loading),
         );
 
   void changeStatus({required MainStatus status, String? name}) {

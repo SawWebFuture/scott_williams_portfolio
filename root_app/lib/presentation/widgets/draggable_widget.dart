@@ -26,7 +26,7 @@ class _DraggableWidgetState extends State<DraggableWidget> {
           feedback: Container(
             width: 100,
             height: 100,
-            color: Colors.blue.withOpacity(0.5),
+            color: Colors.blue.withValues(alpha: 0.5),
             alignment: Alignment.center,
             child: const Text("Drag Me!"),
           ),
@@ -62,9 +62,6 @@ class _DraggableWidgetState extends State<DraggableWidget> {
               alignment: Alignment.center,
               child: const Text("Drop Here"),
             );
-          },
-          onAccept: (data) {
-            // The draggable widget was accepted and dropped onto the target
           },
         ),
       ],

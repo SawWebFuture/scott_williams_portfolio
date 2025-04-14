@@ -1,3 +1,3 @@
 class RootAppRoutes {
-  static const main = '/main';
+  static const main = '/';
 }

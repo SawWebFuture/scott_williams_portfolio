@@ -19,6 +19,17 @@ class _UserNameDialogFieldState extends State<UserNameDialogField> {
     _controller = TextEditingController();
   }
 
+  void _handleSubmit() {
+    if (_controller.text.isEmpty) {
+      setState(() {
+        errorText = 'Username is required';
+      });
+    } else {
+      // TODO: Update using Hive if needed.
+      Navigator.pop(context, _controller.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -33,6 +44,7 @@ class _UserNameDialogFieldState extends State<UserNameDialogField> {
                 labelText: 'Username',
                 errorText: errorText,
               ),
+              onSubmitted: (_) => _handleSubmit(),
               onChanged: (value) {
                 if (errorText != null) {
                   setState(() {
@@ -50,16 +62,7 @@ class _UserNameDialogFieldState extends State<UserNameDialogField> {
               borderRadius: BorderRadius.circular(12.0), // Rounded corners
             ),
             padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-            onPressed: () {
-              if (_controller.text.isEmpty) {
-                setState(() {
-                  errorText = 'Username is required';
-                });
-              } else {
-                // TODO: update using hive
-                Navigator.pop(context, _controller.text);
-              }
-            },
+            onPressed: _handleSubmit,
             child: const Text('Submit'),
           ),
           const SizedBox(

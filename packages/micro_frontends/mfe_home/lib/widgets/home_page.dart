@@ -40,15 +40,21 @@ class HomePage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
+                const SizedBox(height: 55,),
+                const HomeDate(date: '2025'),
                 HomePortfolioItem(
-                  imageUrl: 'assets/images/iConnectMusicians.jpg',
+                  imageUrl: 'assets/images/HenryMeds.jpg',
                   onTap: () {
                     launchDialog.call(
                       context: context,
-                      name: 'iConnectMusicians',
+                      name: 'Henry Meds',
+                      links: [
+                        'https://app.henrymeds.com/',
+                      ],
                     );
                   },
                 ),
+
                 const HomeDate(date: '2023'),
                 HomePortfolioItem(
                   imageUrl: 'assets/images/iConnections.jpg',

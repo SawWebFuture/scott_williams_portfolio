@@ -4,6 +4,7 @@ import 'package:scott_williams_portfolio/consts/consts.dart';
 import 'package:scott_williams_portfolio/presentation/notifiers/main_notifier.dart';
 import 'package:scott_williams_portfolio/presentation/notifiers/main_state.dart';
 import 'package:scott_williams_portfolio/presentation/widgets/main_body.dart';
+import 'package:scott_williams_portfolio/presentation/widgets/main_loading.dart';
 import 'package:sw_dependencies/sw_dependencies.dart';
 import 'package:sw_design_system/sw_design_system.dart';
 
@@ -24,6 +25,22 @@ class _MainPageState extends State<MainPage> {
       () => MainNotifier(),
     );
     mainNotifier = GetIt.I.get<MainNotifier>();
+    _checkHiveForName();
+  }
+
+
+  Future<void> _checkHiveForName() async {
+    // Open the Hive box.
+    var box = await Hive.openBox('nameBox');
+    var nameFromBox = box.get('name') as String?;
+
+    // Update the notifier based on whether a name was retrieved.
+    // If no name exists, we assume the user needs to log in.
+    if (nameFromBox == null || nameFromBox.isEmpty) {
+      mainNotifier.changeStatus(status: MainStatus.login, name: '');
+    } else {
+      mainNotifier.changeStatus(status: MainStatus.home, name: nameFromBox);
+    }
   }
 
   // final _navigatorList = <Navigator>[
@@ -41,9 +58,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final themeModeNotifier = ThemeInheritedNotifier.of(context);
-    final themeMode = themeModeNotifier.value;
-    final isDark = themeMode == ThemeMode.dark;
+    final themeNotifier = ThemeInheritedNotifier.of(context);
+    final themeState = themeNotifier.value;
+    final isDark = themeState.themeMode == ThemeMode.dark;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -78,9 +95,10 @@ class _MainPageState extends State<MainPage> {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                themeModeNotifier.toggleTheme();
+                ThemeInheritedNotifier.of(context).toggleTheme(isDark);
               },
               child: Container(
+                color: Colors.transparent,
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
@@ -111,6 +129,7 @@ class _MainPageState extends State<MainPage> {
         valueListenable: mainNotifier,
         builder: (_, state, __) {
           return switch (state.status) {
+            MainStatus.loading => const MainLoading(),
             MainStatus.login => MainBody(
                 isDark: isDark,
                 onPageChange: (value) {

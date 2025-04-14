@@ -31,6 +31,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_web_plugins:
+    sdk: flutter
+
   #Common dependencies
   sw_dependencies:
     path: '../packages/commons/sw_dependencies'

@@ -107,6 +107,7 @@ class _MainBodyState extends State<MainBody> {
                         isGoHome = true;
                         name = value;
                         controller.reset(); //resets the slider
+                        debugPrint(name);
                         widget.onPageChange.call(
                           name,
                         );

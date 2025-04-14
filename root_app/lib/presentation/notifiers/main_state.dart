@@ -1,6 +1,7 @@
 enum MainStatus {
   login,
   home,
+  loading,
 }
 
 class MainState {

@@ -35,8 +35,8 @@ class _HighlightState extends State<Highlight> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: _isHighlighted
-              ? Colors.white.withOpacity(0.3)
-              : Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+              ? Colors.white.withValues(alpha: 0.3)
+              : Theme.of(context).colorScheme.secondary.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: const Text(

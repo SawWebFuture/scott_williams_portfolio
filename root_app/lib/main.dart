@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:mfe_home/home_microfrontend.dart';
 import 'package:scott_williams_portfolio/presentation/main_page.dart';
 import 'package:scott_williams_portfolio/routes/root_app_routes.dart';
@@ -13,6 +14,8 @@ import 'consts/consts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  setUrlStrategy(PathUrlStrategy());
 
   if (kIsWeb) {
     // Web-safe Hive init
@@ -131,6 +134,7 @@ class MyApp extends StatefulWidget with RootApp {
 
 class _MyAppState extends State<MyApp> {
   late final Future<void> checkSharedPreferencesFuture;
+
   @override
   void initState() {
     super.initState();
@@ -160,12 +164,11 @@ class _MyAppState extends State<MyApp> {
             notifier: GetIt.instance<ThemeNotifier>(),
             child: SafeArea(
               child: MaterialApp(
-                initialRoute: '/main',
+                initialRoute: '/',
                 onGenerateRoute: widget.generateRoute,
                 title: 'Scott Williams Portfolio',
                 theme: ThemeData(
                   primaryColor: HexColor('#448ea2'),
-                  primarySwatch: getMaterialColor(HexColor('#448ea2')),
                   textSelectionTheme: TextSelectionThemeData(
                     cursorColor: Consts.backgroundColor,
                   ),
@@ -203,27 +206,5 @@ class _MyAppState extends State<MyApp> {
             ),
           );
         });
-  }
-
-  MaterialColor getMaterialColor(Color color) {
-    final int red = color.red;
-    final int green = color.green;
-    final int blue = color.blue;
-    final int alpha = color.alpha;
-
-    final Map<int, Color> shades = {
-      50: Color.fromARGB(alpha, red, green, blue),
-      100: Color.fromARGB(alpha, red, green, blue),
-      200: Color.fromARGB(alpha, red, green, blue),
-      300: Color.fromARGB(alpha, red, green, blue),
-      400: Color.fromARGB(alpha, red, green, blue),
-      500: Color.fromARGB(alpha, red, green, blue),
-      600: Color.fromARGB(alpha, red, green, blue),
-      700: Color.fromARGB(alpha, red, green, blue),
-      800: Color.fromARGB(alpha, red, green, blue),
-      900: Color.fromARGB(alpha, red, green, blue),
-    };
-
-    return MaterialColor(color.value, shades);
   }
 }
