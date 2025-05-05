@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sw_dependencies/sw_dependencies.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({
@@ -13,37 +12,26 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 50,
-      decoration: BoxDecoration(
-        color: isDark ? HexColor('#044b4d') : Colors.white,
-        border: const Border(
-          bottom: BorderSide(
-            color: Colors.grey,
-          ),
-        ),
-        boxShadow: const [
-          BoxShadow(color: Colors.grey, offset: Offset(2, 2), blurRadius: 6,),
-        ],
-      ),
       child: Center(
         child: RichText(
           text: TextSpan(
             children: [
-              TextSpan(
+              const TextSpan(
                 text: 'Welcome ',
                 style: TextStyle(
                   fontSize: 22,
-                  color: isDark ? Colors.white : Colors.black,
+                  color: Colors.white,
                 ),
               ),
               TextSpan(
                 text: name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   decoration: TextDecoration.underline,
-                  color: isDark ? Colors.white : Colors.black,
+                  color: Colors.white,
                 ),
               ),
             ],

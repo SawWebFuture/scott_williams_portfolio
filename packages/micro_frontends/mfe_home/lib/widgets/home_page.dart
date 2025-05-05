@@ -33,14 +33,39 @@ class HomePage extends StatelessWidget {
       color: isDark ? HexColor('#052d2d') : Colors.white,
       child: Column(
         children: [
-          HomeHeader(
-            isDark: isDark,
-            name: name,
-          ),
           Expanded(
             child: ListView(
               children: [
-                const SizedBox(height: 55,),
+                Container(
+                  height: MediaQuery.of(context).size.height - 50,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/cyber.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Image(image: AssetImage('assets/images/cyber.jpg')),
+                      HomeHeader(
+                        isDark: isDark,
+                        name: name,
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 55,
+                ),
+                const Center(
+                    child: Text(
+                  'Mobile App Development History',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                )),
+                const SizedBox(
+                  height: 55,
+                ),
                 const HomeDate(date: '2025'),
                 HomePortfolioItem(
                   imageUrl: 'assets/images/HenryMeds.jpg',
@@ -54,7 +79,6 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 ),
-
                 const HomeDate(date: '2023'),
                 HomePortfolioItem(
                   imageUrl: 'assets/images/iConnections.jpg',
